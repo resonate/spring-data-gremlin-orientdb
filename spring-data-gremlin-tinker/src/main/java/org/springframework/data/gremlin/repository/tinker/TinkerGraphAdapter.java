@@ -1,7 +1,7 @@
 package org.springframework.data.gremlin.repository.tinker;
 
 import org.apache.tinkerpop.gremlin.structure.Vertex;
-import com.tinkerpop.blueprints.impls.tg.TinkerGraph;
+import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.gremlin.repository.GremlinGraphAdapter;
@@ -17,8 +17,8 @@ public class TinkerGraphAdapter extends GremlinGraphAdapter<TinkerGraph> {
     @Override
     @Transactional(readOnly = false)
     public Vertex createVertex(TinkerGraph graph, String className) {
-        Vertex vertex = graph.addVertex(null);
-        vertex.setProperty("label", className);
+        Vertex vertex = graph.addVertex();
+        vertex.property("label", className);
         return vertex;
     }
 

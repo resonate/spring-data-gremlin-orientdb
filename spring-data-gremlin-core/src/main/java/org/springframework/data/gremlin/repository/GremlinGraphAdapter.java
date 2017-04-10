@@ -77,7 +77,7 @@ public class GremlinGraphAdapter<G extends Graph> {
         if (id == null) {
             return null;
         }
-        return graphFactory.graph().getVertex(id);
+        return graphFactory.graph().V(id);
     }
 
     @Transactional(readOnly = true)
