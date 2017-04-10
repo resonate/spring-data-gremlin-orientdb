@@ -1,7 +1,10 @@
 package org.springframework.data.gremlin.query;
 
-import com.tinkerpop.blueprints.Compare;
-import com.tinkerpop.blueprints.Contains;
+import org.apache.tinkerpop.gremlin.process.traversal.Compare;
+import org.apache.tinkerpop.gremlin.process.traversal.Contains;
+import org.apache.tinkerpop.gremlin.process.traversal.P;
+import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversal;
+import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__;
 import org.apache.tinkerpop.gremlin.structure.Direction;
 import com.tinkerpop.blueprints.Predicate;
 import com.tinkerpop.gremlin.java.GremlinPipeline;
@@ -27,19 +30,20 @@ import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
+import static org.apache.tinkerpop.gremlin.process.traversal.P.gt;
+
 /**
  * Concrete {@link AbstractQueryCreator} for Gremlin.
  *
  * @author Gman
  */
-public class GremlinQueryCreator extends AbstractQueryCreator<GremlinPipeline, GremlinPipeline> {
+public class GremlinQueryCreator extends AbstractQueryCreator<GraphTraversal, GraphTraversal> {
 
     private static final Logger logger = LoggerFactory.getLogger(GremlinQueryCreator.class);
 
     private final PartTree tree;
 
     private GremlinGraphFactory factory;
-
     private GremlinSchemaFactory schemaFactory;
 
     private ParameterAccessor accessor;
@@ -57,23 +61,23 @@ public class GremlinQueryCreator extends AbstractQueryCreator<GremlinPipeline, G
     }
 
     @Override
-    protected GremlinPipeline create(Part part, Iterator<Object> iterator) {
+    protected GraphTraversal create(Part part, Iterator<Object> iterator) {
         return toCondition(part, iterator);
     }
 
     @Override
-    protected GremlinPipeline and(Part part, GremlinPipeline base, Iterator<Object> iterator) {
+    protected GraphTraversal and(Part part, GraphTraversal base, Iterator<Object> iterator) {
         Pipe lastPipe = (Pipe) base.getPipes().get(base.getPipes().size() - 1);
         if (lastPipe instanceof AndFilterPipe) {
             return base.add(toCondition(part, iterator));
         }
-        GremlinPipeline andPipeline = new GremlinPipeline();
+        GraphTraversal andPipeline = new GremlinPipeline();
         andPipeline.and(base, toCondition(part, iterator));
         return andPipeline;
     }
 
     @Override
-    protected GremlinPipeline or(GremlinPipeline base, GremlinPipeline criteria) {
+    protected GraphTraversal or(GraphTraversal base, GraphTraversal criteria) {
         return new GremlinPipeline().or(base, criteria);
     }
 
@@ -82,9 +86,9 @@ public class GremlinQueryCreator extends AbstractQueryCreator<GremlinPipeline, G
     }
 
     @Override
-    protected GremlinPipeline complete(GremlinPipeline criteria, Sort sort) {
+    protected GraphTraversal complete(GraphTraversal criteria, Sort sort) {
         Pageable pageable = accessor.getPageable();
-        GremlinPipeline pipeline = new GremlinPipeline(factory.graph());
+        GraphTraversal pipeline = new GraphTraversal(factory.graph());
         if (schema.isEdgeSchema()) {
             pipeline = pipeline.V().add(criteria);
         } else if (schema.isVertexSchema()) {
@@ -95,9 +99,9 @@ public class GremlinQueryCreator extends AbstractQueryCreator<GremlinPipeline, G
         return pipeline;
     }
 
-    protected GremlinPipeline toCondition(Part part, Iterator<Object> iterator) {
+    protected GraphTraversal toCondition(Part part, Iterator<Object> iterator) {
 
-        GremlinPipeline pipeline = new GremlinPipeline();
+        GraphTraversal pipeline = new GremlinPipeline();
         PropertyPath path = part.getProperty();
         PropertyPath leafProperty = path.getLeafProperty();
         String leafSegment = leafProperty.getSegment();
@@ -179,71 +183,71 @@ public class GremlinQueryCreator extends AbstractQueryCreator<GremlinPipeline, G
 
     }
 
-    private GremlinPipeline includeCondition(Part.Type type, String property, GremlinPipeline pipeline, Iterator iterator) {
+    private GraphTraversal includeCondition(Part.Type type, String property, GraphTraversal traversal, Iterator iterator) {
         switch (type) {
         case AFTER:
         case GREATER_THAN:
-            pipeline.has(property, Compare.GREATER_THAN, iterator.next());
+            traversal.has(property, P.gt(iterator.next()));
             break;
         case GREATER_THAN_EQUAL:
-            pipeline.has(property, Compare.GREATER_THAN_EQUAL, iterator.next());
+            traversal.has(property, P.gte(iterator.next()));
             break;
         case BEFORE:
         case LESS_THAN:
-            pipeline.has(property, Compare.LESS_THAN, iterator.next());
+            traversal.has(property, P.lt(iterator.next()));
             break;
         case LESS_THAN_EQUAL:
-            pipeline.has(property, Compare.LESS_THAN_EQUAL, iterator.next());
+            traversal.has(property, P.lte(iterator.next()));
             break;
         case BETWEEN:
             Object val = iterator.next();
-            pipeline.has(property, Compare.LESS_THAN, val).has(property, Compare.GREATER_THAN, val);
+            traversal.has(property, P.lt(val)).has(property,P.gt(val));
             break;
         case IS_NULL:
-            pipeline.has(property, null);
+            traversal.has(property, P.eq(null));
             break;
         case IS_NOT_NULL:
-            pipeline.has(property);
+            traversal.has(property);
             break;
         case IN:
-            pipeline.has(property, Contains.IN, iterator.next());
+            traversal.has(property, Contains.within, iterator.next());
             break;
         case NOT_IN:
-            pipeline.has(property, Contains.NOT_IN, iterator.next());
+            traversal.has(property, Contains.without, iterator.next());
             break;
         case LIKE:
-            pipeline.has(property, Like.IS, iterator.next());
+            traversal.has(property, Like.IS, iterator.next());
             break;
         case NOT_LIKE:
-            pipeline.has(property, Like.NOT, iterator.next());
+            traversal.has(property, Like.NOT, iterator.next());
             break;
         case STARTING_WITH:
-            pipeline.has(property, StartsWith.DOES, iterator.next());
+            traversal.has(property, StartsWith.DOES, iterator.next());
             break;
         case ENDING_WITH:
-            pipeline.has(property, EndsWith.DOES, iterator.next());
+            traversal.has(property, EndsWith.DOES, iterator.next());
             break;
         case CONTAINING:
-            pipeline.has(property, Like.IS, iterator.next());
+            traversal.has(property, Like.IS, iterator.next());
             break;
         case SIMPLE_PROPERTY:
-            pipeline.has(property, iterator.next());
+            traversal.has(property, iterator.next());
             break;
         case NEGATING_SIMPLE_PROPERTY:
-            pipeline.hasNot(property, iterator.next());
+            traversal.not(__.has(property, iterator.next()));
             break;
         case TRUE:
-            pipeline.has(property, true);
+            traversal.has(property, true);
             break;
         case FALSE:
-            pipeline.has(property, false);
+            traversal.has(property, false);
             break;
         default:
             throw new IllegalArgumentException("Unsupported keyword!");
         }
 
 //        return new GremlinPipeline().and(pipeline);
-        return pipeline;
+        return traversal;
     }
 
 

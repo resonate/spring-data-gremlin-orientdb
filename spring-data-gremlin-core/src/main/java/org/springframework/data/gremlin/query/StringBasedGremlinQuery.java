@@ -1,6 +1,7 @@
 package org.springframework.data.gremlin.query;
 
 import org.apache.tinkerpop.gremlin.groovy.jsr223.GremlinGroovyScriptEngine;
+import org.apache.tinkerpop.gremlin.process.traversal.Traversal;
 import org.apache.tinkerpop.gremlin.structure.Graph;
 
 import org.springframework.data.domain.Pageable;
@@ -41,7 +42,7 @@ public class StringBasedGremlinQuery extends AbstractGremlinQuery {
 
     @Override
     @SuppressWarnings("rawtypes")
-    protected Pipeline doRunQuery(DefaultParameters parameters, Object[] values, boolean ignorePaging) {
+    protected Traversal doRunQuery(DefaultParameters parameters, Object[] values, boolean ignorePaging) {
 
         ScriptEngine engine = new GremlinGroovyScriptEngine();
         Bindings bindings = engine.createBindings();
@@ -73,7 +74,7 @@ public class StringBasedGremlinQuery extends AbstractGremlinQuery {
         }
 
         try {
-            return (Pipeline) engine.eval(queryString, bindings);
+            return (Traversal) engine.eval(queryString, bindings);
         } catch (ScriptException e) {
             throw new IllegalArgumentException(String.format("Could not evaluate Gremlin query String %s. Error: %s ", queryString, e.getMessage()), e);
         }

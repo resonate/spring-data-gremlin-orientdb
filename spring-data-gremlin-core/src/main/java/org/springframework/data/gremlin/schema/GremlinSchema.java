@@ -232,14 +232,14 @@ public abstract class GremlinSchema<V> {
 
     public V cascadeLoadFromGraph(GremlinGraphAdapter graphAdapter, Element element, Map<Object, Object> noCascadingMap) {
 
-        V obj = (V) noCascadingMap.get(element.getId());
+        V obj = (V) noCascadingMap.get(element.id());
         if (obj == null) {
             try {
                 obj = getClassType().newInstance();
 
                 GremlinPropertyAccessor idAccessor = getIdAccessor();
-                idAccessor.set(obj, encodeId(element.getId().toString()));
-                noCascadingMap.put(element.getId(), obj);
+                idAccessor.set(obj, encodeId(element.id().toString()));
+                noCascadingMap.put(element.id(), obj);
             } catch (Exception e) {
                 throw new IllegalStateException("Could not instantiate new " + getClassType(), e);
             }
@@ -263,7 +263,7 @@ public abstract class GremlinSchema<V> {
     }
 
     public void setObjectId(Object obj, Element element) {
-        getIdAccessor().set(obj, encodeId(element.getId().toString()));
+        getIdAccessor().set(obj, encodeId(element.id().toString()));
     }
 
     public String getObjectId(Object obj) {
