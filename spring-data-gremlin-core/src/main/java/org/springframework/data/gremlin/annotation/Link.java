@@ -1,6 +1,6 @@
 package org.springframework.data.gremlin.annotation;
 
-import com.tinkerpop.blueprints.Direction;
+import org.apache.tinkerpop.gremlin.structure.Direction;
 
 import java.lang.annotation.*;
 

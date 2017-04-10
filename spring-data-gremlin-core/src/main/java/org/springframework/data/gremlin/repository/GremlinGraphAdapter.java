@@ -1,9 +1,9 @@
 package org.springframework.data.gremlin.repository;
 
-import com.tinkerpop.blueprints.Edge;
-import com.tinkerpop.blueprints.Element;
-import com.tinkerpop.blueprints.Graph;
-import com.tinkerpop.blueprints.Vertex;
+import org.apache.tinkerpop.gremlin.structure.Edge;
+import org.apache.tinkerpop.gremlin.structure.Element;
+import org.apache.tinkerpop.gremlin.structure.Graph;
+import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class GremlinGraphAdapter<G extends Graph> {
     @Transactional(readOnly = false)
     public Vertex createVertex(G graph, String className) {
         LOGGER.info("CREATING VERTEX: " + className);
-        Vertex vertex = graph.addVertex(null);
+        Vertex vertex = graph.addVertex();
         return vertex;
     }
 

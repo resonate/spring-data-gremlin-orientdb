@@ -2,7 +2,7 @@ package org.springframework.data.gremlin.query;
 
 import com.tinkerpop.blueprints.Compare;
 import com.tinkerpop.blueprints.Contains;
-import com.tinkerpop.blueprints.Direction;
+import org.apache.tinkerpop.gremlin.structure.Direction;
 import com.tinkerpop.blueprints.Predicate;
 import com.tinkerpop.gremlin.java.GremlinPipeline;
 import com.tinkerpop.pipes.Pipe;

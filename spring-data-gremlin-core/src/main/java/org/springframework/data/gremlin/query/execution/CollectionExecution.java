@@ -1,6 +1,6 @@
 package org.springframework.data.gremlin.query.execution;
 
-import com.tinkerpop.blueprints.Element;
+import org.apache.tinkerpop.gremlin.structure.Element;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.gremlin.query.AbstractGremlinQuery;

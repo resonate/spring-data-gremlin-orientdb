@@ -1,7 +1,7 @@
 package org.springframework.data.gremlin.object.neo4j.repository;
 
 import com.tinkerpop.blueprints.*;
-import com.tinkerpop.gremlin.groovy.jsr223.GremlinGroovyScriptEngine;
+import org.apache.tinkerpop.gremlin.groovy.jsr223.GremlinGroovyScriptEngine;
 import com.tinkerpop.gremlin.java.GremlinPipeline;
 import com.tinkerpop.pipes.util.Pipeline;
 import org.junit.After;

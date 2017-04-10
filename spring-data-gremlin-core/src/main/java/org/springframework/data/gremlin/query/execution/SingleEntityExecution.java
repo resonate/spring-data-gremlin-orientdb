@@ -1,6 +1,6 @@
 package org.springframework.data.gremlin.query.execution;
 
-import com.tinkerpop.blueprints.Vertex;
+import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.springframework.data.gremlin.query.AbstractGremlinQuery;
 import org.springframework.data.gremlin.repository.GremlinGraphAdapter;
 import org.springframework.data.gremlin.schema.GremlinSchema;

@@ -1,8 +1,8 @@
 package org.springframework.data.gremlin.schema.generator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tinkerpop.blueprints.Direction;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.tinkerpop.gremlin.structure.Direction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;

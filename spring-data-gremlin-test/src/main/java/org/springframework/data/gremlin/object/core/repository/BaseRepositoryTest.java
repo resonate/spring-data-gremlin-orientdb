@@ -1,9 +1,10 @@
 package org.springframework.data.gremlin.object.core.repository;
 
 import com.tinkerpop.blueprints.*;
-import com.tinkerpop.gremlin.groovy.jsr223.GremlinGroovyScriptEngine;
-import com.tinkerpop.gremlin.java.GremlinPipeline;
-import com.tinkerpop.pipes.util.Pipeline;
+import org.apache.tinkerpop.gremlin.groovy.jsr223.GremlinGroovyScriptEngine;
+import org.apache.tinkerpop.gremlin.structure.Edge;
+import org.apache.tinkerpop.gremlin.structure.Graph;
+import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

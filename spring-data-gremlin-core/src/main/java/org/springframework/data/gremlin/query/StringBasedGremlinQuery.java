@@ -1,8 +1,8 @@
 package org.springframework.data.gremlin.query;
 
-import com.tinkerpop.blueprints.Graph;
-import com.tinkerpop.gremlin.groovy.jsr223.GremlinGroovyScriptEngine;
-import com.tinkerpop.pipes.util.Pipeline;
+import org.apache.tinkerpop.gremlin.groovy.jsr223.GremlinGroovyScriptEngine;
+import org.apache.tinkerpop.gremlin.structure.Graph;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.gremlin.repository.GremlinGraphAdapter;
 import org.springframework.data.gremlin.schema.GremlinSchemaFactory;

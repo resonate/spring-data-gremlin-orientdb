@@ -1,7 +1,7 @@
 package org.springframework.data.gremlin.schema;
 
-import com.tinkerpop.blueprints.Direction;
-import com.tinkerpop.blueprints.Element;
+import org.apache.tinkerpop.gremlin.structure.Direction;
+import org.apache.tinkerpop.gremlin.structure.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.gremlin.repository.GremlinGraphAdapter;
