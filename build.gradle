@@ -24,8 +24,8 @@ allprojects {
     apply plugin: 'propdeps-eclipse'
 
     sourceCompatibility = 1.7
-    version = '0.1.1-SNAPSHOT'
-    group = 'com.github.gjrwebber'
+    version = '0.1.2-SNAPSHOT'
+    group = 'com.resonate'
 
     repositories {
         mavenLocal()
@@ -68,6 +68,15 @@ allprojects {
     javadoc {
         failOnError = false
     }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+
 }
 
 
