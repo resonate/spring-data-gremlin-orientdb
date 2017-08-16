@@ -1,3 +1,7 @@
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+group = "com.resonate"
 task testJar(type: Jar, dependsOn: testClasses) {
     baseName = "test-${project.archivesBaseName}"
     from sourceSets.test.output
@@ -9,4 +13,12 @@ configurations {
 
 artifacts {
     tests testJar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
 }
