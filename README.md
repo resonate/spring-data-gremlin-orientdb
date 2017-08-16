@@ -5,7 +5,7 @@ Spring data gremlin makes it easier to implement Graph based repositories. This 
 ## Features
 
 - All the great features of [Spring Data](http://projects.spring.io/spring-data)
-- Support for [OrientDB](http://orientdb.com) and [TitanDB](http://s3.thinkaurelius.com/docs/titan/current)  out of the box
+- Support for [OrientDB](http://orientdb.com)
 - Schema creation in supported databases
 - Support to build repositories based on Spring using our [custom set of annotations](https://github.com/gjrwebber/org/springframework/data/gremlin/annotation), [spring-data-neo4j](http://docs.spring.io/spring-data/neo4j/docs/current/reference/html/#reference_programming-model_annotations) or JPA annotations.
 - Vertex and Edge repository support
@@ -39,35 +39,6 @@ Below is a list of default annotations used by the ```DefaultSchemaGenerator```.
 - ```@ToVertex``` defines the ending (or IN) vertex of a ```@Edge```
 
 
-## Neo4j Schema Generation
-
-Below is a list of supported annotations used by the ```Neo4jSchemaGenerator```. These annotations are part of the [spring-data-neo4j](http://docs.spring.io/spring-data/neo4j/docs/current/reference/html/#reference_programming-model_annotations) platform.
-
-
-- ```@NodeEntity``` maps an ```Object``` to a ```Vertex```
-- ```@RelationshipEntity``` maps an ```Object``` to an ```Edge```
-- ```@GraphId``` maps an instance variable to the vertex or edge ID
-- ```@Indexed``` used for indexing properties
-- ```@GraphProperty``` maps an instance variable to a vertex property (optional, only required if you want to name it differently)
-- ```@RelatedTo``` creates a link from this vertex to the referenced ```Object```'s vertex or ```Collection```'s verticies using the name of the field as default or the optional ```type``` parameter as the link label
-- ```@RelatedToVia``` creates an ```Edge``` based the the referenced ```Object``` or ```Collection``` which must be a ```@RelationshipEntity```
-- ```@StartNode``` defines the starting (or OUT) vertex of a ```@RelationshipEntity```
-- ```@EndNode``` defines the ending (or IN) vertex of a ```@RelationshipEntity```
-
-## JPA Schema Generation
-
-Below is a list of supported annotations used by the ```JpaSchemaGenerator```:
-
-- ```@Entity``` maps an ```Object``` to a ```Vertex```
-- ```@Embeddable``` maps an ```Object``` to set of properties to be embedded in a "parent" vertex
-- ```@Id``` maps an instance variable to the vertex ID
-- ```@Column``` maps an instance variable to a vertex property
-- ```@Embedded``` embeds the referenced ```Object``` in the "parent" vertex
-- ```@AttributeOverrides``` and ```@AttributeOverride``` can be used for overriding ```@Embedded``` property names.   
-- ```@OneToOne``` creates an outgoing link from this vertex to the referenced ```Object```'s vertex using the name of the field as default or the optional ```@Column```'s name field as the link label
-- ```@OneToMany``` creates an outgoing link from this vertex to all of the referenced ```Collection```'s vertices using the name of the field as default or the optional ```@Column```'s name field as the link label
-- ```@Transient``` marks an instance variable as transient
-- ```@Enumerated``` allows for mapping an enum as a ordinal, otherwise String is the default mapping
 
 ## Getting Started
 
@@ -98,41 +69,14 @@ Once you have your build configuration setup you need to add the correct depende
 
 #### Database dependency
 **OrientDB** - com.github.gjrwebber:spring-data-gremlin-orientdb:0.1.0-SNAPSHOT  
-**TitanDB** - com.github.gjrwebber:spring-data-gremlin-titan:0.1.0-SNAPSHOT
 
 #### Schema generator dependency
 **Default** - No further dependency  
-**JPA** - com.github.gjrwebber:spring-data-gremlin-schemagen-jpa:0.1.0-SNAPSHOT  
-**Neo4j** - com.github.gjrwebber:spring-data-gremlin-schemagen-neo4j:0.1.0-SNAPSHOT
 
-#### Maven example
 
-Using OrientDB database with Neo4j schema generator:
+### Create your domain model
 
-```
-<dependency>
-    <groupId>com.github.gjrwebber</groupId>
-    <artifactId>spring-data-gremlin-orientdb</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
-</dependency>
-<dependency>
-    <groupId>com.github.gjrwebber</groupId>
-    <artifactId>spring-data-gremlin-schemagen-neo4j</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
-</dependency>
-```
-
-#### Gradle example
-
-Using TitanDB with default schema generator:
-
-```
-compile("com.github.gjrwebber:spring-data-gremlin-titan:0.1.0-SNAPSHOT")
-```
-
-### Create you domain model
-
-Create your domain objects. I have used the default generator for mapping the schema, but you can also use [spring-data-neo4j](http://docs.spring.io/spring-data/neo4j/docs/current/reference/html/#reference_programming-model_annotations) or JPA annotations if you wish.
+Create your domain objects. I have used the default generator for mapping the schema.
 
 **Note:** Have a look at [the test subproject](https://github.com/gjrwebber/spring-data-gremlin/tree/develop/spring-data-gremlin-test) for more examples.
 
