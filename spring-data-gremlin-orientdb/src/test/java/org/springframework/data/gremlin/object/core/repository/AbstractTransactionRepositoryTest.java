@@ -1,6 +1,7 @@
 package org.springframework.data.gremlin.object.core.repository;
 
 import com.google.common.collect.Lists;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.data.gremlin.object.core.domain.Address;
 import org.springframework.data.gremlin.object.core.domain.Area;
@@ -15,6 +16,7 @@ import static org.junit.Assert.fail;
 /**
  * Created by gman on 30/07/15.
  */
+@Ignore
 public class AbstractTransactionRepositoryTest extends BaseRepositoryTest {
 
     @Test
