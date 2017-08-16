@@ -8,7 +8,7 @@ buildscript {
 }
 
 ext {
-    springVersion = "4.2.4.RELEASE"
+    springVersion = "4.3.10.RELEASE"
 }
 
 
@@ -23,7 +23,7 @@ allprojects {
     apply plugin: 'propdeps-idea'
     apply plugin: 'propdeps-eclipse'
 
-    sourceCompatibility = 1.7
+    sourceCompatibility = 1.8
     version = '0.1.2-SNAPSHOT'
     group = 'com.resonate'
 
@@ -59,6 +59,10 @@ allprojects {
     task sourcesJar(type: Jar) {
         classifier = 'sources'
         from sourceSets.main.allSource
+    }
+
+    task wrapper(type: Wrapper) {
+        gradleVersion = '3.5.1'
     }
 
     artifacts {
