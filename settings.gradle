@@ -1,3 +1,2 @@
 include 'spring-data-gremlin-core', 'spring-data-gremlin-orientdb'
 rootProject.name = 'spring-data-gremlin'
-
