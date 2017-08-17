@@ -1,17 +1,5 @@
-apply plugin: 'java'
-apply plugin: 'maven-publish'
-group = "com.resonate"
-
 dependencies {
     compile project(':spring-data-gremlin-core')
     compile('com.orientechnologies:orientdb-lucene:2.1.12')
     compile('com.orientechnologies:orientdb-graphdb:2.1.12')
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
 }

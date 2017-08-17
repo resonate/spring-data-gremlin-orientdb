@@ -20,8 +20,13 @@ allprojects {
     apply plugin: 'maven-publish'
 
     sourceCompatibility = 1.8
-    version = '0.1.2-SNAPSHOT'
     group = 'com.resonate'
+
+    if(project.hasProperty("teamcity")) {
+        version teamcity['build.number']
+    } else {
+        version 'DEV-SNAPSHOT'
+    }
 
     repositories {
         mavenLocal()
@@ -70,5 +75,14 @@ allprojects {
     javadoc {
         failOnError = false
     }
+}
 
+subprojects {
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+    }
 }
