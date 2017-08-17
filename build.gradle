@@ -71,12 +71,4 @@ allprojects {
         failOnError = false
     }
 
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-            }
-        }
-    }
-
 }

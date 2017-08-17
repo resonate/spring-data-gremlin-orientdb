@@ -7,3 +7,11 @@ dependencies {
     compile('com.orientechnologies:orientdb-lucene:2.1.12')
     compile('com.orientechnologies:orientdb-graphdb:2.1.12')
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
