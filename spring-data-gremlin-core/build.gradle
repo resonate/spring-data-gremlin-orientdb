@@ -14,11 +14,3 @@ configurations {
 artifacts {
     tests testJar
 }
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-}
