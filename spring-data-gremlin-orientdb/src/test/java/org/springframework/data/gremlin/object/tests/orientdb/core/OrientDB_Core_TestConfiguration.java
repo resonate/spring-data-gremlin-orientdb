@@ -33,6 +33,8 @@ public class OrientDB_Core_TestConfiguration {
         factory.setUrl("memory:spring-data-orientdb-core");
         factory.setUsername("admin");
         factory.setPassword("admin");
+        factory.setAutoStartTx(false);
+
         return factory;
     }
 

@@ -141,6 +141,7 @@ public abstract class BaseRepositoryTest {
         Likes like5 = new Likes(vanja, graham);
         likesRepository.save(like5);
 
+        factory.beginTx(graph);
         Iterable<Vertex> addresses = graph.query().has("street").vertices();
         assertNotNull(addresses);
         for (Vertex addr : addresses) {

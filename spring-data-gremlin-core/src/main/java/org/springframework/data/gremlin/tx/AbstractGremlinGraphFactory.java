@@ -33,6 +33,8 @@ public abstract class AbstractGremlinGraphFactory<T extends Graph> implements Gr
 
     protected boolean autoCreate = true;
 
+    protected boolean autoStartTx;
+
     @PostConstruct
     public void init() {
 
@@ -171,6 +173,15 @@ public abstract class AbstractGremlinGraphFactory<T extends Graph> implements Gr
      */
     public void setMaxPoolSize(int maxPoolSize) {
         this.maxPoolSize = maxPoolSize;
+    }
+
+    /**
+     * Enables .
+     *
+     * @param autoStartTx the new max pool size
+     */
+    public void setAutoStartTx(boolean autoStartTx){
+        this.autoStartTx = autoStartTx;
     }
 
     public boolean getAutoCreate() {
