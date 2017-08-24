@@ -1,6 +1,0 @@
-dependencies {
-    compile project(':spring-data-gremlin-core')
-    compile('com.orientechnologies:orientdb-lucene:2.2.26')
-    compile('com.orientechnologies:orientdb-graphdb:2.2.26')
-    compile('com.orientechnologies:orientdb-spatial:2.2.26')
-}
