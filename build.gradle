@@ -11,19 +11,24 @@ apply plugin: 'maven-publish'
 
 bootRepackage.enabled = false
 
-sourceCompatibility = 1.8
-version = '0.1.2-SNAPSHOT'
-group = 'com.resonate'
+group = "com.resonate"
+if(project.hasProperty("teamcity")) {
+    version teamcity['build.number']
+} else {
+    version 'SNAPSHOT'
+}
+sourceCompatibility = "1.8"
 
 repositories {
     mavenLocal()
     maven { url 'https://repo.spring.io/libs-release' }
     maven { url 'https://repo.spring.io/libs-snapshot' }
     mavenCentral()
+    maven { url "http://nexus.domain.local/nexus/content/repositories/snapshots" }
 }
 
 dependencies {
-    compile('com.resonate:spring-data-gremlin-core')
+    compile('com.resonate:spring-data-gremlin-core:0.10.f02c116-SNAPSHOT')
     compile('com.orientechnologies:orientdb-lucene:2.2.26')
     compile('com.orientechnologies:orientdb-graphdb:2.2.26')
     compile('com.orientechnologies:orientdb-spatial:2.2.26')
@@ -68,10 +73,26 @@ javadoc {
     failOnError = false
 }
 
+if (!project.hasProperty('mavenUser')){
+    ext.mavenUser = ''
+}
+if (!project.hasProperty('mavenPassword')){
+    ext.mavenPassword = ''
+}
 publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username mavenUser
+                password mavenPassword
+            }
+            name "snapshots"
+            url "http://nexus/nexus/content/repositories/snapshots"
         }
     }
 }
