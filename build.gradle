@@ -28,14 +28,13 @@ repositories {
 }
 
 dependencies {
-    compile('com.resonate:spring-data-gremlin-core:0.12.d194d22-SNAPSHOT')
+    compile('com.resonate:spring-data-gremlin-core:0.13.9daa674-SNAPSHOT')
     compile('com.orientechnologies:orientdb-lucene:2.2.26')
     compile('com.orientechnologies:orientdb-graphdb:2.2.26')
     compile('com.orientechnologies:orientdb-spatial:2.2.26')
 
     compile('org.springframework.boot:spring-boot-starter')
     compile('org.springframework:spring-tx')
-    compile('org.springframework.data:spring-data-commons:1.11.0.RELEASE')
 
     compile('org.codehaus.groovy:groovy:1.8.9')
     compile('com.tinkerpop.blueprints:blueprints-core:2.6.0')
