@@ -90,8 +90,11 @@ publishing {
                 username mavenUser
                 password mavenPassword
             }
-            name "snapshots"
-            url "http://nexus/nexus/content/repositories/snapshots"
+            if(project.version.endsWith('-SNAPSHOT')) {
+                url "http://nexus.dev.aws.resonatedigital.net/repository/maven-snapshots/"
+            } else {
+                url "http://nexus.dev.aws.resonatedigital.net/repository/maven-releases/"
+            }
         }
     }
 }
