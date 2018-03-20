@@ -23,12 +23,12 @@ repositories {
     mavenLocal()
     maven { url 'https://repo.spring.io/libs-release' }
     maven { url 'https://repo.spring.io/libs-snapshot' }
-    maven { url "http://nexus.domain.local/nexus/content/repositories/snapshots" }
+    maven { url "http://nexus.dev.aws.resonatedigital.net/repository/maven-public" }
     mavenCentral()
 }
 
 dependencies {
-    compile('com.resonate:spring-data-gremlin-core:0.13.9daa674-SNAPSHOT')
+    compile('com.resonate:spring-data-gremlin-core:15')
     compile('com.orientechnologies:orientdb-lucene:2.2.26')
     compile('com.orientechnologies:orientdb-graphdb:2.2.26')
     compile('com.orientechnologies:orientdb-spatial:2.2.26')
