@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    compile('com.resonate:spring-data-gremlin-core:15')
+    compile('com.resonate:spring-data-gremlin-core:0.24.25cf6e6-SNAPSHOT')
     compile('com.orientechnologies:orientdb-lucene:2.2.26')
     compile('com.orientechnologies:orientdb-graphdb:2.2.26')
     compile('com.orientechnologies:orientdb-spatial:2.2.26')
